@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+    <title>JSON data to HtML table using Ajax JQuery getJSON method</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="jquery.twbsPagination.min.js"></script>
+    <!--<script src="./products.json"></script>-->
+    <script src="./index.js"></script>
+</head>
+
+
+<!--<p>The select currency element from a drop-down list:</p>-->
+
+
+<select id="Currency"  name="Currencies">
+    <option value="USD">USD</option>
+    <option value="GBP">GBP</option>
+    <option value="SEK">SEK</option>
+    <option value="DKK">DKK</option>
+</select>
+<br />
+<!--<p>To Display All Products Click Here:</p>
+<input type="submit" value="Display All Products" onchange="DisplayAllproducts()">
+<br />
+<p>To Display Paginated Products Click Here:</p>
+<input type="submit" value="Display Paged Products" onchange="DisplayPagedProducts()">
+<br />
+<p>To Display Range Products Click Here:</p>
+<input type="submit" value="Display Range Products" onchange="DisplayRangeProducts()">-->
+<body>
+    <p><br /><br /></p>
+    <div class="container">
+        <div class="table/responsive">
+            <h1>JSON data from HTML</h1>
+            <table class="table table-bordered table-striped table-hover" id="ProductTable">
+                <thead>
+                    <tr>
+                        <th>ProductId</th>
+                        <th>ProductName</th>
+                        <th>CategoryId</th>
+                        <th>Price</th>
+                        <!--<th>Brand</th>
+                <th>Dimensions</th>
+                <th>ItemNumber</th>
+                <th>Description</th>-->
+                    </tr>
+                </thead>
+                <tbody id="ProductTableBody">
+                </tbody>
+            </table>
+            <div id="pager">
+                <ul id="pagination" class="pagination-sm"></ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
