@@ -10,7 +10,7 @@
   "devDependencies": {
     "avensia-api-sample-server": "https://github.com/avensia/api-sample-server",
     "node-sass": "^4.7.2",
-    "parcel-bundler": "^1.6.2",
+    "parcel-bundler": "^1.10.0",
     "prettier": "1.11.1",
     "typescript": "2.7.2"
   }
