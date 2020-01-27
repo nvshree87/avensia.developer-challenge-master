@@ -52,6 +52,7 @@
     <Compile Include="DefaultProductDto.cs" />
     <Compile Include="DefaultRegistry.cs" />
     <Compile Include="Enums\Currency.cs" />
+    <Compile Include="Helper\Helper.cs" />
     <Compile Include="IProductDto.cs" />
     <Compile Include="IProductRepository.cs" />
     <Compile Include="ProductContainer.cs" />

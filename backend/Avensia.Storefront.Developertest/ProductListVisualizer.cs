@@ -23,75 +23,99 @@ namespace Avensia.Storefront.Developertest
         //displays all the products from the file price is based on currency selected 
         public void OutputAllProduct(Currency selectedCurrency)
         {
-
-            var products = _productRepository.GetProducts(_fileData);
-            if (products != null && products.Any())
+            try
             {
-                Console.WriteLine($"ProductId  \t    ProductName    \t  ProductPrice({selectedCurrency})  \t      ProductBrand      \t  ProductNumber  ");
-                foreach (var product in products)
+                var products = _productRepository.GetProducts(_fileData);
+                if (products != null && products.Any())
                 {
-                    var brand = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Brand").Select(x => x.Value).FirstOrDefault();
-                    var Dimensions = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Dimensions").Select(x => x.Value).FirstOrDefault();
-                    var ItemNumber = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "ItemNumber").Select(x => x.Value).FirstOrDefault();
-                    var Description = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Description").Select(x => x.Value).FirstOrDefault();
+                    Console.WriteLine($"ProductId  \t    ProductName    \t  ProductNumber\tProductPrice({selectedCurrency})\tProductBrand      ");
+                    foreach (var product in products)
+                    {
+                        var brand = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Brand").Select(x => x.Value).FirstOrDefault();
+                        var Dimensions = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Dimensions").Select(x => x.Value).FirstOrDefault();
+                        var ItemNumber = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "ItemNumber").Select(x => x.Value).FirstOrDefault();
+                        var Description = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Description").Select(x => x.Value).FirstOrDefault();
 
-                    Console.WriteLine(string.Format($"{product.Id}  \t  " +
-                        $"{product.ProductName.Substring(0, product.ProductName.Length > 15 ? 15 : product.ProductName.Length)}  \t  " +
-                        $"{ConvertCurrency(selectedCurrency, product.Price)} \t  " +
-                        $"{brand}  \t  " +
-                        $"{ItemNumber}  \t  "));
+                        Console.WriteLine(string.Format($"{product.Id}  \t  " +
+                            $"{product.ProductName.Substring(0, product.ProductName.Length > 15 ? 15 : product.ProductName.Length)}  \t  " +
+                            $"{ItemNumber}      \t  " +
+                            $"{ConvertCurrency(selectedCurrency, product.Price)}      \t  " +
+                            $"{brand}          \t  " ));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No Products Found to display");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("No Products Found to display");
+                Console.WriteLine("OutputAllProduct : Thrown an Exception");
+                Helper.DisplayException(ex);
             }
         }
-        
+
         private decimal ConvertCurrency(Currency selectedCurrency, decimal price)
         {
-            decimal convertedPrice = 0.0m;
-            switch (selectedCurrency)
+            try
             {
-                case Currency.USD:
-                    convertedPrice = price;
-                    break;
-                case Currency.GBP:
-                    convertedPrice = price * 0.71m;
-                    break;
-                case Currency.SEK:
-                    convertedPrice = price * 8.38m;
-                    break;
-                case Currency.DKK:
-                    convertedPrice = price * 6.06m;
-                    break;
+                decimal convertedPrice = 0.0m;
+                switch (selectedCurrency)
+                {
+                    case Currency.USD:
+                        convertedPrice = price;
+                        break;
+                    case Currency.GBP:
+                        convertedPrice = price * 0.71m;
+                        break;
+                    case Currency.SEK:
+                        convertedPrice = price * 8.38m;
+                        break;
+                    case Currency.DKK:
+                        convertedPrice = price * 6.06m;
+                        break;
+                }
+                return convertedPrice;
             }
-            return convertedPrice;
+            catch (Exception ex)
+            {
+                Console.WriteLine("ConvertCurrency : Thrown an Exception");
+                Helper.DisplayException(ex);
+                return 0.0m;
+            }
         }
         //displays paginated products price is based on currency selected 
         public void OutputPaginatedProducts(Currency selectedCurrency, int pageNo, int pageSize)
         {
-            var products = _productRepository.GetProducts(_fileData, pageNo, pageSize);
-            if (products != null && products.Any())
+            try
             {
-                Console.WriteLine($"ProductId  \t    ProductName    \t  ProductPrice({selectedCurrency})  \t      ProductBrand      \t  ProductNumber  ");
-                foreach (var product in products)
+                var products = _productRepository.GetProducts(_fileData, pageNo, pageSize);
+                if (products != null && products.Any())
                 {
-                    var brand = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Brand").Select(x => x.Value).FirstOrDefault();
-                    var Dimensions = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Dimensions").Select(x => x.Value).FirstOrDefault();
-                    var ItemNumber = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "ItemNumber").Select(x => x.Value).FirstOrDefault();
-                    var Description = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Description").Select(x => x.Value).FirstOrDefault();
+                    Console.WriteLine($"ProductId  \t    ProductName    \t  ProductPrice({selectedCurrency})  \t      ProductBrand      \t  ProductNumber  ");
+                    foreach (var product in products)
+                    {
+                        var brand = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Brand").Select(x => x.Value).FirstOrDefault();
+                        var Dimensions = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Dimensions").Select(x => x.Value).FirstOrDefault();
+                        var ItemNumber = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "ItemNumber").Select(x => x.Value).FirstOrDefault();
+                        var Description = ((DefaultProductDto)product).Properties.Where(w => w.KeyName == "Description").Select(x => x.Value).FirstOrDefault();
 
-                    Console.WriteLine(string.Format($"{product.Id}  \t  " +
-                        $"{product.ProductName.Substring(0, product.ProductName.Length > 15 ? 15 : product.ProductName.Length)}  \t  " +
-                        $"{ConvertCurrency(selectedCurrency, product.Price)} \t  " +
-                        $"{brand}  \t  " +
-                        $"{ItemNumber}  \t  "));
+                        Console.WriteLine(string.Format($"{product.Id}  \t  " +
+                            $"{product.ProductName.Substring(0, product.ProductName.Length > 15 ? 15 : product.ProductName.Length)}  \t  " +
+                            $"{ConvertCurrency(selectedCurrency, product.Price)} \t  " +
+                            $"{brand}  \t  " +
+                            $"{ItemNumber}  \t  "));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No Products Found to display");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("No Products Found to display");
+                Console.WriteLine("OutputPaginatedProducts : Thrown an Exception");
+                Helper.DisplayException(ex);
             }
         }
 
@@ -99,36 +123,45 @@ namespace Avensia.Storefront.Developertest
         //displays grouped by price products price is based on currency selected
         public void OutputProductGroupedByPriceSegment(Currency selectedCurrency, decimal rangeForIncrement)
         {
-            var products = _productRepository.GetProducts(_fileData).Select(x => new
+            try
             {
-                name = x.ProductName,
-                Price = ConvertCurrency(selectedCurrency, x.Price)
-            }).OrderBy(o => o.Price);
-            Console.WriteLine("\n");
-
-            if (products != null && products.Any())
-            {
-                for (decimal i = 0; i < products.LastOrDefault().Price;)
+                var products = _productRepository.GetProducts(_fileData).Select(x => new
                 {
-                    decimal start = i;
-                    decimal end = (i + rangeForIncrement);
+                    name = x.ProductName,
+                    Price = ConvertCurrency(selectedCurrency, x.Price)
+                }).OrderBy(o => o.Price);
+                Console.WriteLine("\n");
 
-                    Console.WriteLine($"{start}{selectedCurrency} - {end}{selectedCurrency}");
+                if (products != null && products.Any())
+                {
+                    for (decimal i = 0; i < products.LastOrDefault().Price;)
+                    {
+                        decimal start = i;
+                        decimal end = (i + rangeForIncrement);
 
-                    var rangeProducts = products.Where(w => w.Price >= start && w.Price < end).Select(x => x);
-                    foreach (var rangeProduct in rangeProducts)
-                        Console.WriteLine(rangeProduct.name + " - " + rangeProduct.Price);
+                        Console.WriteLine($"{start}{selectedCurrency} - {end}{selectedCurrency}");
 
-                    i = end;
-                    Console.WriteLine("\n");
+                        var rangeProducts = products.Where(w => w.Price >= start && w.Price < end).Select(x => x);
+                        foreach (var rangeProduct in rangeProducts)
+                            Console.WriteLine(rangeProduct.name + " - " + rangeProduct.Price);
 
+                        i = end;
+                        Console.WriteLine("\n");
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No Products Found to display");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("No Products Found to display");
+                Console.WriteLine("OutputProductGroupedByPriceSegment : Thrown an Exception");
+                Helper.DisplayException(ex);
             }
-        }
+
+        } 
 
 
     }

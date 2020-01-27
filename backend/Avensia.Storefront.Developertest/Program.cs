@@ -123,9 +123,7 @@ namespace Avensia.Storefront.Developertest
                         catch (Exception ex)
                         {
                             Console.WriteLine("Program() - ExceptionThrown ");
-                            Console.WriteLine($"Exception Message : {ex.Message}");
-                            Console.WriteLine($"Exception Stacktrace : {ex.StackTrace}");
-                            Console.WriteLine($"Exception InnerException : {ex.InnerException}");
+                            Helper.DisplayException(ex);
                         }
                         break;
                     case ConsoleKey.Q:
